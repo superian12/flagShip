@@ -528,8 +528,14 @@ ol {
 }
 
 .site-logo {
-	display: inline-block;
-	margin-left: 50px;
+	padding-left: 50px;
+}
+.site-logo img {
+	height: auto; 
+	width: auto; 
+	/* padding-left: 50px; */
+    max-width: 90px; 
+    max-height: 90px;
 }
 
 .nav-switch {
@@ -625,9 +631,11 @@ ol {
 }
 
 .hero-rocket img {
-	position: relative;
-	-webkit-animation: rocket 2s linear infinite;
-	animation: rocket 2s linear infinite;
+	/* position: relative; */
+	/* -webkit-animation: rocket 2s linear infinite;
+	animation: rocket 2s linear infinite; */
+	margin-right: 250px;
+	margin-bottom: 100px;
 }
 
 @-webkit-keyframes rocket {
