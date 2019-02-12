@@ -192,6 +192,8 @@ ol {
 	box-shadow: inset 0 0 0 2px #eb2b63;
 }
 
+
+
 /* Preloder */
 
 #preloder {
@@ -691,6 +693,11 @@ ol {
 .features-section .section-title {
 	margin-bottom: 130px;
 }
+
+.features-section .section-title img{
+	margin-top: 50px;
+}
+
 
 .features-section .container {
 	margin-bottom: -70px;

@@ -73,4 +73,4 @@ exports.vendor_create = function (req, res) {
 }
 // exports.status = function (req, res) {
 //     res.render('int');
-// }
+// }te

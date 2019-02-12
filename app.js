@@ -30,6 +30,10 @@ app.get('/',function(req,res){
 })
 
 let port = 3000;
+// error 404
+app.get('*', function(req, res){
+    res.send('what???', 404);
+  });
 
 app.listen(port, () =>{
     console.log('Listeing to port ' + port)
