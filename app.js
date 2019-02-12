@@ -29,10 +29,13 @@ app.get('/',function(req,res){
     res.render('index')
 })
 
-let port = 3000;
+let port = 80;
 // error 404
 app.get('*', function(req, res){
-    res.send('what???', 404);
+    // res.send('Ero', 404);
+    res.redirect('/');
+
+
   });
 
 app.listen(port, () =>{
