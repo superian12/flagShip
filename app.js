@@ -29,7 +29,7 @@ app.get('/',function(req,res){
     res.render('index')
 })
 
-let port = 80;
+let port = 3000;
 // error 404
 app.get('*', function(req, res){
     // res.send('Ero', 404);
