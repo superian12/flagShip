@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const product = require('./routes/product.route'); // Imports routes for the products
+const ops = require('./routes/operation.route');
 const app = express();
 // app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(__dirname + '/src'));
@@ -19,7 +20,12 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+// use Routes
 app.use('/products', product);
+app.use('/ops',ops)
+
+// View Engine
 app.set('views','./views');
 app.set('view engine', 'ejs')
 
