@@ -12,8 +12,19 @@ exports.operation_home = function(req,res){
 exports.operation_auth = function(req,res){
     // Auth logic
 
-    // if success 
-    res.send('Dashboard');
+
+    User.find({email:req.body.email}, {"email":1},function (err, user) {
+        if (err) return next(err);
+        if(!user.length){
+            res.send('No data found')
+        }
+        else{
+            res.redirect('/ops/add');
+        }
+        
+
+    })
+
 }
 
 exports.operation_addUser = function(req,res){
@@ -28,6 +39,7 @@ exports.operation_addUser = function(req,res){
     user.save(function (err) {
         if (err) {
             return next(err);
+            console.log('duplicate')
         }
         res.send('Vendor Created')
     })
