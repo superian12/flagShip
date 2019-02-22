@@ -19,7 +19,7 @@ exports.operation_auth = function(req,res){
             res.send('No data found')
         }
         else{
-            res.redirect('/ops/add');
+            res.redirect('/ops/dashboard');
         }
         
 
@@ -27,22 +27,27 @@ exports.operation_auth = function(req,res){
 
 }
 
-exports.operation_addUser = function(req,res){
+exports.operation_addUser = function(req,res, next){
     let user = new User({
         userID: 0 ,
-        email: "christian.ian.banzon@outlook.com",
+        email: "christian.ian.banzon@gmail.com",
         firstName:"Christian",
         lastNane:"Banzon",
-        mobile: 09173012212,
+        mobile: 1,
         isActive:true
     })
     user.save(function (err) {
         if (err) {
-            return next(err);
-            console.log('duplicate')
+            return res.status(500).send({
+                success: false,
+                message: 'User already exist!'
+            });
         }
         res.send('Vendor Created')
     })
+}
+exports.operation_dashboard = function(req,res){
+    res.render('operations/dashboard')
 }
 
 // exports.status = function (req, res) {
