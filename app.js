@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const chalk = require('chalk');
+const debug = require('debug')('app');
 const product = require('./routes/product.route'); // Imports routes for the products
 const ops = require('./routes/operation.route');
 const app = express();
@@ -35,13 +36,13 @@ app.get('/',function(req,res){
 
 let port = 3000;
 // error 404
-app.get('*', function(req, res){
-    // res.send('Ero', 404);
-    res.redirect('/');
+// app.get('*', function(req, res){
+//     // res.send('Ero', 404);
+//     res.redirect('/');
 
 
-  });
+//   });
 
 app.listen(port, () =>{
-    console.log('Listeing to port ' + port)
+    debug(`Listening on port ${chalk.green(port)}`);
 })

@@ -3,23 +3,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- <link rel="stylesheet" href="src/css/bootstrap.min.css">
         <link rel="stylesheet" href="src/css/font-awesome.min.css"> -->
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="/css/login.css">
 
         <!-- <link rel="stylesheet" href="src/css/login.css"/> -->
     </head>
     <body class="align">
             <h2 id="welcome-text">Welcome Operations</h2>
             <div class="grid">
-              <form action="/ops/auth/" method="POST" class="form login">
+              <form action="/ops/addparcel/" method="POST" class="form login">
           
                 <div class="form__field">
-                  <label for="login__username"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Username</span></label>
-                  <input id="login__username" type="text" name="email" class="form__input" placeholder="Username" required>
+                  <label for="email"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Username</span></label>
+                  <input id="email" type="text" name="email" class="form__input" placeholder="Username" required>
+
                 </div>
           
                 <div class="form__field">
-                  <label for="login__password"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use></svg><span class="hidden">Password</span></label>
-                  <input id="login__password" type="password" name="password" class="form__input" placeholder="Password" required>
+                  <label for="password"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use></svg><span class="hidden">Password</span></label>
+                  <input id="password" type="password" name="password" class="form__input" placeholder="Password" required>
                 </div>
           
                 <div class="form__field">
