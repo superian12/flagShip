@@ -8,16 +8,16 @@ const ops = require('./routes/operation.route');
 const app = express();
 // app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(__dirname + '/src'));
-
+app.disable('view cache');
 
 // Set up mongoose connection
-const mongoose = require('mongoose');
-let dev_db_url = 'mongodb://localhost:27017/courier';
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB);
-mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+// const mongoose = require('mongoose');
+// let dev_db_url = 'mongodb://localhost:27017/courier';
+// let mongoDB = process.env.MONGODB_URI || dev_db_url;
+// mongoose.connect(mongoDB);
+// mongoose.Promise = global.Promise;
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -30,8 +30,11 @@ app.use('/ops',ops)
 app.set('views','./views');
 app.set('view engine', 'ejs')
 
-app.get('/',function(req,res){
+app.get('/',function(req,res, next){
+
+
     res.render('index')
+
 })
 
 let port = 3000;

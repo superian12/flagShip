@@ -9,5 +9,15 @@
 
 .view_parcel #page_heading{
     margin-top:50px;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
+}
+
+#view_vendor{
+    margin-top:50px;
+    border: 2px solid lightblue;
+    border-radius: 5px;
+}
+#view_vendor form {
+    padding: 30px;
+    padding-top:20px;
 }

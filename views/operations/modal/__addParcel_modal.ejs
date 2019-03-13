@@ -1,0 +1,83 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Parcel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/ops/addparcel">
+            <div class="form-group">
+                <span>WayBill:</span>
+                <input type="number" class="form-control" name="waybill">
+            </div>
+            <div class="form-group">
+                <span>Vendor:</span>
+                <select name="vendorCode" class="form-control"  required>
+                <option value="">Select one...</option>
+                <% for (var i = 0 ; i < vendor_list.length; i++) {%>
+                  
+                    <option value="<%= vendor_list[i].code%>"><%= vendor_list[i].code%> - <%= vendor_list[i].name%></option> 
+
+                <%}%>
+                
+                </select>
+            </div>
+            <div class="form-group">
+            <span>Messenger:</span>
+                <select name="get" class="form-control"  required>
+                    <option value="">Select one...</option>
+                    <% for (var i = 0 ; i < messenger_list.length; i++) {%>
+                        <option value="<%= messenger_list[i].userID %>"><%= messenger_list[i].firstName%> <%= messenger_list[i].lastName%></option> 
+                    <%}%>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <span>Recipient:</span>
+                <input type="text" class="form-control" name="recipient">
+            </div>
+
+            <div class="form-group">
+                <span>Area:</span>
+                <select name="area" class="form-control" required>
+                    <option value="">Select one...</option>
+                    <% for(var i =0; i<area_list.length; i++) {%>
+                    <option value="<%= area_list[i].areaID%>"><%= area_list[i].areaName%></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <span>Address:</span>
+                <input type="text" class="form-control" name="address">
+            </div>
+            <div class="form-group">
+                <span>Pouch:</span>
+                <select name="size" class="form-control" required>
+                    <option value="">Select one...</option>
+                    <option value="1">Medium Pouch </option>
+                    <option value="2">Large Pouch</option>
+                    <option value="3">Own Packaging</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <span>Add on Kg</span>
+              <input name="addOn" class="form-control" value="0" required>
+            </div>
+            <div class="form-group">
+              <span>Amount:</span>
+              <input type="number" class="form-control" required>
+            </div>
+
+      </div>
+      <div class="modal-footer">
+      <input type="submit" class="btn btn-primary" value="Add Parcel">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,8 +1,8 @@
-const Product = require('../models/product.model');
-const Vendor = require('../models/vendor.model');
-const messenger = require('../models/messenger.model');
-const User = require('../models/user.model');
-
+const db = require('./../config/db');
+const parcelSQL = require('./../config/functions/parcels');
+const messengerSQL = require('./../config/functions/messenger');
+const areaSQL = require('./../config/functions/area');
+const mysqlStatements = require('./../config/functions/system_functions');
 
 //Simple version, without validation or sanitation
 
@@ -10,20 +10,20 @@ exports.operation_home = function (req, res) {
     res.render('operations/index');
 }
 exports.operation_auth = function (req, res) {
-    // Auth logic
+    // // Auth logic
 
 
-    User.find({ email: req.body.email }, { "email": 1 }, function (err, user) {
-        if (err) return next(err);
-        if (!user.length) {
-            res.send('No data found')
-        }
-        else {
-            res.redirect('/ops/dashboard');
-        }
+    // User.find({ email: req.body.email }, { "email": 1 }, function (err, user) {
+    //     if (err) return next(err);
+    //     if (!user.length) {
+    //         res.send('No data found')
+    //     }
+    //     else {
+    //         res.redirect('/ops/dashboard');
+    //     }
 
 
-    })
+    // })
 
 }
 
@@ -47,103 +47,124 @@ exports.operation_addUser = function (req, res, next) {
     })
 }
 exports.operation_dashboard = function (req, res) {
+    parcelSQL.getcard(function (err, parcel) {
+        parcelSQL.getVendor(function (err, vendor_list) {
+            res.render('operations/dashboard', { parcel, vendor_list })
+        })
 
-    Product.count({ 'status': 1 }, function (err, product) {
-        if (err) return next(err);
-        // res.render('operations/view_parcel', {product} )
-        joborder = product
     });
-    Product.count({ 'status': 2 }, function (err, product) {
-        if (err) return next(err);
-        // res.render('operations/view_parcel', {product} )
-        storage = product
-    });
-    Product.count({ 'status': 3 }, function (err, product) {
-        if (err) return next(err);
-        otw = product
-    })
-
-
-    res.render('operations/dashboard', { product: joborder, product: storage, product: otw })
 }
-// Add Parcels
+// PARCEL MANAGEMENT
 
 exports.operation_viewParcel = function (req, res, next) {
-    Product.find({}).sort({ 'status': 'desc' }).exec(function (err, product) {
-        if (err) return next(err);
 
-        grid = product
-    });
-
-    Vendor.find({},{"code":1,"name":1}, function(err,vendor){
-        if (err) return next(err);
-        vendor_list = vendor
+    parcelSQL.getActiveParcel((err,parcels)=>{
+        parcelSQL.getVendor((err,vendor_list)=> {
+            messengerSQL.getActiveMessenger((err,messenger_list)=>{
+                areaSQL.getActiveArea((err,area_list)=>{
+                    parcelSQL.getExportParcel((err,checkout_list) => {
+                        parcelSQL.getDeliveryParcel((err,deliver_list)=>{
+                            res.render('operations/view_parcel', { parcels, vendor_list, messenger_list, area_list, checkout_list, deliver_list });
+                        })
+                    })
+                })
+            })
+        })
     })
-
-    res.render('operations/view_parcel', { product: grid,vendor:vendor_list })
-
+    
 }
 
 exports.operation_addParcel = function (req, res, next) {
-    let parcel = new Product({
 
+    let postData = {
         wayBill: req.body.waybill,
         recipient: req.body.recipient,
-        address: req.body.address,
-        messengerGet: 0,
-        messengerDelivered: 0,
+        address: req.body.recipient,
+        messengerGet: req.body.get,
         area: req.body.area,
         size: req.body.size,
-        vendorID: req.body.vendor,
-        // addOnKg:{type:Number},
-        // datePickedUp:{type: Date},
-        // dateOnRoute:{type: Date},
-        // dateDelivered:{type: Date},
+        vendorCode: req.body.vendorCode,
         status: 1,
-        isPayed: false,
-    })
+        addOnKg: req.body.addOn,
+        isPayed: true
+    };
 
-    // res.send(req.body.address)
-
-    parcel.save(function (err) {
-        if (err) {
-            return res.status(500).send({
-                success: false,
-                message: 'User already exist!'
-            });
-        }
-
-    })
-
-    res.redirect('/ops/viewparcel')
+    let sql = 'INSERT INTO parcels SET dateGenerated = NOW(), ?';
+    let query = db.query(sql, postData, (err, result) => {
+        if (err) res.send(err);
+        console.log(result);
+        res.send(result);
+    });
 }
 
-exports.operation_testparser = function (req, res) {
-    // Vendor.find({},{"userID":1,"name":1}, function(err,vendor){
-    //     if (err) return next(err);
-    //     list = vendor
-    // })
-    // res.send({vendor:list});
+exports.operation_testparser = async function (req, res){
 
-    let vendor = new Vendor({
-        code: 3,
-        name:"La Favorita",
-        tel: 09178213064,
-        mobile: 28423123,
-        address: "1400 Favorita Street",
-        isActive: true
+
+}
+
+exports.operation_manageParcel = function (req, res) {
+    // res.render('operations/manage_parcel');
+    waybill = req.params.waybill
+    let sql = `SELECT * FROM parcels WHERE waybill = '${waybill}'`;
+    let query = db.query(sql, (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        list = result[0]
+        // res.send(result[0]);
+        res.render('operations/manage_parcel', { list });
+    });
+}
+exports.operation_checkoutParcel = function (req, res) {
+    let sql = `UPDATE parcels set dateOnRoute = NOW() , status = 2 , messengerPost = ${req.body.checkout} WHERE wayBill = '${req.body.waybill}' `;
+    let query = db.query(sql, (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        res.redirect('/ops/viewparcel')
     })
-    vendor.save(function (err) {
-        if (err) {
-            return res.status(500).send({
-                success: false,
-                message: 'User already exist!'
-            });
-        }
+    // var params = { bill: req.body.waybill, mes: req.body.checkout}
 
+    // res.send({params});
+}
+exports.operation_checkout = function (req, res) {
+    let sql = `UPDATE parcels set dateOnRoute = NOW() , status = 2 , messengerPost = ${req.body.checkout}`;
+    let query = db.query(sql, (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        res.send('OK')
     })
+}
+exports.operation_deliver = function (req, res) {
 
-    res.send('OK')
+    mysqlStatements.deliverParcel(req.body.wayBill, req.body.status);
+
+    res.send("OK");
+}
+// Vendor Management
+
+exports.operation_getVendor = function (req, res) {
+    res.render('operations/add_vendor')
+}
+exports.operation_addVendor = function (req, res) {
+    var Vendor = {
+        code: req.body.code,
+        name: req.body.name,
+        mobile: req.body.mobile,
+        telephone: req.body.telephone,
+        address: req.body.address,
+        status: 1
+
+    }
+    let sql = 'INSERT INTO vendors SET ?';
+    let query = db.query(sql, Vendor, (err, result) => {
+        if (err) res.send(err);
+        res.redirect('/ops/dashboard');
+    });
+
+}
+// Area
+
+exports.opreration_getArea = function (req, res) {
+    res.render('operations/add_area');
 }
 
 // exports.status = function (req, res) {

@@ -1,0 +1,66 @@
+<% include __header %>
+
+
+    <div class="container col-lg-6">
+        <div id="view_vendor">
+            <br>
+            <h2 class="text-center">WayBill # <%= list.wayBill %></h2>
+
+            <form method="POST" action="/ops/insertvendor">
+                <br>
+                <h4>Messenger Information</h4>
+                <hr>
+
+                <div class="form-group">
+                    <span>Messenger Received</span>
+                    <input type="text" class="form-control col-sm-6" name="code" value="<%= list.messengerGet %>" required>
+                </div>
+                <% if(list.status != 1) {%>
+                <div class="form-group">
+                    <span>Messenger Assigned</span>
+                    <input type="text" class="form-control col-sm-6" name="code" value="<%= list.messengerGet %>" required>
+                </div>
+                <% } %>
+                <br>
+                <h4>Vendor Information and Parcel Information</h4>
+                <hr>
+                <div class="form-group">
+                    <span>Vendor:</span>
+                    <input type="text" class="form-control" name="name" value="<%= list.vendorCode %>" required>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span>Size:</span>
+                        <input type="number" class="form-control" value="<%= list.size %>" name="telephone" required>
+                    </div>
+                    <div class="col">
+                        <span>Ammount:</span>
+                        <input type="text" class="form-control" name="mobile" value="<%= list.ammount %>" required>
+                    </div>
+                </div>
+                <br>
+                <h4> Recipient Information</h4>
+                <hr>
+                <div class="form-group">
+                    <span> Recipient: </span>
+                    <input type="text" class = "form-control" name="recipient" value="<%= list.recipient %>" required>
+                </div>
+                <div class="form-group">
+                    <span> Address: </span>
+                    <input type="text" class = "form-control" name="recipient" value="<%= list.address %>" required>
+                </div>
+                <div class="form-group">
+                    <span>area</span>
+                    <input type="text" class="form-control col-sm-6" name="code" value="<%= list.area %>" required>
+                </div>
+                <input type="submit" class="float-right btn btn-lg btn-warning text-white" value="Edit Parcel">
+                <br>
+                
+            </form>
+        </div>
+
+    </div>
+
+
+
+<% include __footer %>

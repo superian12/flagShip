@@ -4,7 +4,9 @@
     <h2 id="page_heading"class="text-center">Parcel Views</h2>
     <div class="container">
     <div class="table-responsive">
- 
+        <a class="btn btn-success text-white float-left" data-toggle="modal" data-target="#exampleModal">Add Parcel</a>
+        <br>
+        <br>
         <table id="active_parcel" class="table table-bordered table-stripped">
             <thead>
                 <tr>
@@ -16,32 +18,31 @@
                 <th>Size</th>
                 <th>vendor</th>
                 <th>Status</th>
-                <th>action</th>
+                <th>Edit</th>
                 
                 </tr>
             </thead>    
             <tbody>
-                <% for (var i = 0 ; i < grid.length; i++) {%>
+                <% for (var i = 0 ; i < parcels.length; i++) {%>
                     <tr>
                         
-                        <td><%= grid[i].wayBill %></td>
-                        <td><%= grid[i].recipient%></td>
-                        <td><%= grid[i].address%></td>
-                        <td><%= grid[i].area%></td>
-                        <td><%= grid[i].size%></td>
-                        <td><%= grid[i].vendorID%></td>
-                        <% if( grid[i].status == 1){ %>
-                            <td>On site</td>
-                            <td><a class="btn-sm text-white btn-warning">Deliver</a></td>
+                        <td><%= parcels[i].wayBill %></td>
+                        <td><%= parcels[i].recipient%></td>
+                        <td><%= parcels[i].address%></td>
+                        <td><%= parcels[i].areaName%></td>
+                        <td><%= parcels[i].size%></td>
+                        <td><%= parcels[i].vendorCode%></td>
+                        <% if( parcels[i].status == 1){ %>
+                            <td class="text-warning">On site</td>
+                        <%} else if(parcels[i].status == 2) {%>
+                            <td class="text-info">Dispatch</td>
+                        <%} else if(parcels[i].status == 3) {%>
+                            <td>Delivered</td>
+                        <%} else if(parcels[i].status == 4) {%>
+                            <td class="text-danger"> RETURNED </td>
 
-                        <%} else if(grid[i].status == 2) {%>
-                            <td>On route</td>
-                            <td><a class="btn-sm text-white btn-info">Completed</a></td>
-                        <%} else if(grid[i].status == 3) {%>
-                            <td>Returned</td>
-                            <td><a class="btn-sm text-white btn-info">Manage</a></td>
-                        <%} %>
-                       
+                        <%}%>
+                       <td><a class="btn-sm text-white btn-success" href="/ops/manage/<%=parcels[i].wayBill%>">Edit</a></td>
 
 
 
@@ -53,66 +54,27 @@
             </tbody>
         </table>
     </div>  
-    <a class="btn btn-success text-white float-right" data-toggle="modal" data-target="#exampleModal">Add Parcel</a>
+    <br>
+    <br>
+    <a class="btn btn-warning text-white float-left" data-toggle="modal" data-target="#exportModal">Dispatch Parcel</a>
+
+    <a class="btn btn-info text-white float-right" data-toggle="modal" data-target="#deliverModal">Delivered Parcel</a>
     </div>
 
 
 </div>
     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Parcel</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="/ops/addparcel">
-            <div class="form-group">
-                <span>WayBill:</span>
-                <input type="text" class="form-control" name="waybill">
-            </div>
-            <div class="form-group">
-                <span>Vendor:</span>
-                <select name="vendor" class="form-control"  required>
-                <option value="">Select one...</option>
-                <% for (var i = 0 ; i < vendor_list.length; i++) {%>
-                    <option value="<%= vendor_list[i].code%>"><%= vendor_list[i].name%></option> 
+<% include modal/__addParcel_modal %>
+<!-- Export Parcel Modal -->
+<% include modal/__exports_modal %>
+<!-- Deliver Checkout -->
+<% include modal/__deliver_modal %>
 
-                <%}%>
-                
-                </select>
-            </div>
-            <div class="form-group">
-                <span>Recipient:</span>
-                <input type="text" class="form-control" name="recipient">
-            </div>
-            <div class="form-group">
-                <span>Area:</span>
-                <input type="text" class="form-control" name="area">
-            </div>
-            <div class="form-group">
-                <span>Address:</span>
-                <input type="text" class="form-control" name="address">
-            </div>
-            <div class="form-group">
-                <span>Size:</span>
-                <input type="text" class="form-control" name="size">
-            </div>
-      </div>
-      <div class="modal-footer">
-      <input type="submit" class="btn btn-primary" value="Add Parcel">
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 <script>
 $(document).ready(function () {
 $('#active_parcel').DataTable();
 // $('.dataTables_length').addClass('bs-select');
+
 });
 </script>
 <% include __footer %>
