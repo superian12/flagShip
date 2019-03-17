@@ -2,7 +2,7 @@ const db = require('./../db');
 
 module.exports = {
     getcard: function (ush) {
-        var statement = 'SELECT SUM(IF(status  = 1, 1, 0)) AS on_site, SUM(IF(status = 2, 1,0)) as on_route, SUM(if(status = 3, 1,0)) as returns FROM parcels'
+        var statement = 'SELECT SUM(IF(status  = 1, 1, 0)) AS on_site, SUM(IF(status = 2, 1,0)) as on_route, SUM(if(status = 4, 1,0)) as returns FROM parcels'
         db.query(statement, function (err, result) {
             if (err)
                 ush(err, null);
@@ -27,7 +27,7 @@ module.exports = {
         })
     },
     getExportParcel: (ush)=>{
-        const statement = "SELECT wayBill FROM parcels where status = 1";
+        const statement = "SELECT wayBill FROM parcels where status IN (1,4)";
         db.query(statement, (err,result)=>{
             if(err) ush(err,null);
             ush(null,result);

@@ -6,6 +6,8 @@ const debug = require('debug')('app');
 const product = require('./routes/product.route'); // Imports routes for the products
 const ops = require('./routes/operation.route');
 const app = express();
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 // app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(__dirname + '/src'));
 app.disable('view cache');
@@ -21,7 +23,15 @@ app.disable('view cache');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
+// Cookies and Sessions
+app.use(cookieParser())
+app.use(
+    session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+    })
+  );
 // use Routes
 app.use('/products', product);
 app.use('/ops',ops)
@@ -34,6 +44,9 @@ app.get('/',function(req,res, next){
 
 
     res.render('index')
+
+})
+app.get('/test', (req,res)=>{
 
 })
 

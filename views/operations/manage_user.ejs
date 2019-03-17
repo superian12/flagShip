@@ -1,0 +1,44 @@
+<% include __header %>
+
+<div class="container" id="view_vendor">
+    <h2> Messengers </h2>
+    <br>
+    <table id="tblUsers" class="table table-bordered table-stripped">
+        <thead>
+            <tr>
+            <th>Rider Code</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Mobile</th>
+            </tr>
+        <thead>
+        <tbody>
+            <% for(var x = 0 ; x < messenger.length; x++){ %>
+                <tr>
+                    <td><%= messenger[x].code%>
+                    <td><%= messenger[x].firstName %></td>
+                    <td><%= messenger[x].lastName %></td>
+                    <td><%= messenger[x].mobileNo%></td>
+                </tr>
+
+            <% }%>
+        </tbody>
+
+    </table>
+
+    <a class="btn btn-info text-white float-right" data-toggle="modal" data-target="#addUserModal">Add User</a>
+    <br>
+    <br>
+    <br>
+    </div>
+</div>
+
+<% include modal/__addMessenger_modal %>
+<script>
+$(document).ready(function () {
+$('#tblUsers').DataTable();
+// $('.dataTables_length').addClass('bs-select');
+
+});
+</script>
+<% include __footer %>

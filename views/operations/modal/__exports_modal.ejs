@@ -24,7 +24,7 @@
                 <select name="checkout" class="form-control"  required>
                     <option value="">Select one...</option>
                     <% for (var i = 0 ; i < messenger_list.length; i++) {%>
-                        <option value="<%= messenger_list[i].userID %>"><%= messenger_list[i].firstName%> <%= messenger_list[i].lastName%></option> 
+                        <option value="<%= messenger_list[i].userID %>"><%= messenger_list[i].firstName%> <%= messenger_list[i].lastName%> - <%= messenger_list[i].code %>%></option> 
                     <%}%>
                 </select>
             </div>

@@ -94,8 +94,24 @@
 <div class="col-sm">
 <div class="container table-view table-responsive">
     <h2> Active Areas </h2>
-    <table class="table table-striped">
-    
+    <table id="activeArea"class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" class="">Area Type</th>
+        <th scope="col">Area</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (x = 0; x< area.length; x++) { %>
+        <tr>
+          <td><%= area[x].type %></td>
+          <td><%= area[x].areaName %></td>
+          <td><a class="btn btn-primary text-white btn-sm" > Manage </td>
+        </tr>
+
+      <%  } %>
+    </tbody>
   </table>
   </div>
   </div>
@@ -105,6 +121,7 @@
 <script>
 $(document).ready(function () {
 $('#activeVendors').DataTable();
+$('#activeArea').DataTable();
 // $('.dataTables_length').addClass('bs-select');
 
 });

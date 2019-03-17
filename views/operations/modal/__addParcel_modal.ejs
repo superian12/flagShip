@@ -30,7 +30,7 @@
                 <select name="get" class="form-control"  required>
                     <option value="">Select one...</option>
                     <% for (var i = 0 ; i < messenger_list.length; i++) {%>
-                        <option value="<%= messenger_list[i].userID %>"><%= messenger_list[i].firstName%> <%= messenger_list[i].lastName%></option> 
+                        <option value="<%= messenger_list[i].userID %>"><%= messenger_list[i].firstName%> <%= messenger_list[i].lastName%> - <%= messenger_list[i].code %>%></option> 
                     <%}%>
                 </select>
             </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="form-group">
               <span>Amount:</span>
-              <input type="number" class="form-control" required>
+              <input type="number" class="form-control" name="amount" required>
             </div>
 
       </div>

@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <span> Area Type </span>
-                    <select name="area-type" class="form-control col-sm-10" required>
+                    <select name="areaType" class="form-control col-sm-10" required>
                     <option value="">Select one ...</option>
                     <option value="1">North</option>
                     <option value="2">South</option>
@@ -61,5 +61,14 @@
         </div>
     </div>
 </div>
+
+<script>
+<% if(typeof message != 'undefined'){ %>
+swal("Done", "", "success");
+<% } %>
+<% if(typeof error != 'undefined'){ %>
+swal("Warning", "Something had failed please try again", "warning");
+<% } %>
+</script>
 
 <% include __footer %>
