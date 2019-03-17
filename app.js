@@ -52,12 +52,12 @@ app.get('/test', (req,res)=>{
 
 let port = 3000;
 // error 404
-// app.get('*', function(req, res){
-//     // res.send('Ero', 404);
-//     res.redirect('/');
+app.get('*', function(req, res){
+    // res.send('Ero', 404);
+    res.redirect('/');
 
 
-//   });
+  });
 
 app.listen(port, () =>{
     debug(`Listening on port ${chalk.green(port)}`);
