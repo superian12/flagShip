@@ -5,6 +5,7 @@ const areaSQL = require('./../config/functions/area');
 const mysqlStatements = require('./../config/functions/system_functions');
 const passport = require('../config/passport');
 const hash = require('sha256');
+const vendorSQL = require('./../config/functions/vendors');
 //Simple version, without validation or sanitation
 
 exports.operation_home = function (req, res) {
@@ -49,6 +50,7 @@ exports.operation_dashboard = function (req, res) {
     } else {
         res.redirect('/ops/')
     }
+
 }
 // PARCEL MANAGEMENT
 exports.operation_viewParcel = async function (req, res, next) {
