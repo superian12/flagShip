@@ -71,7 +71,7 @@ app.get('/login',(req,res) => {
     res.render('login');
 })
 
-let port = 80;
+let port = 3000;
 // error 404
 app.get('*', function (req, res) {
     // res.send('Ero', 404);
