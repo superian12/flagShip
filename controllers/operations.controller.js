@@ -41,6 +41,8 @@ exports.operation_dashboard = function (req, res) {
             parcelSQL.getVendor(function (err, vendor_list) {
                 areaSQL.getActiveArea((err, area) => {
                     res.render('operations/dashboard', { parcel, vendor_list, area })
+
+                    // res.send({ parcel, vendor_list, area})
                 })
 
             })
@@ -87,7 +89,9 @@ exports.operation_addParcel = function (req, res, next) {
             status: 1,
             addOnKg: req.body.addOn,
             isPayed: true,
-            amount: req.body.amount
+            amount: req.body.amount,
+            messengerPost: 0
+            
         };
 
         let sql = 'INSERT INTO parcels SET dateGenerated = NOW(), ?';
@@ -157,7 +161,7 @@ exports.operation_deliver = function (req, res) {
 
 exports.operation_getVendor = function (req, res) {
     if (passport.isAuth()) {
-         res.render('operations/add_vendor') 
+        res.render('operations/add_vendor')
     }
     else {
         res.redirect('/ops');

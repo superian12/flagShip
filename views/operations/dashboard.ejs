@@ -105,7 +105,12 @@
     <tbody>
       <% for (x = 0; x< area.length; x++) { %>
         <tr>
-          <td><%= area[x].type %></td>
+          <%if(area[x].type == 1) {%>
+            <td scope="col">Metro</td>
+          <%}%>
+          <% if (area[x].type == 2){%>
+            <td scope="col">South</td>
+          <%}%>
           <td><%= area[x].areaName %></td>
           <td><a class="btn btn-primary text-white btn-sm" > Manage </td>
         </tr>
