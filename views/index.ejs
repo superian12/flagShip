@@ -37,7 +37,7 @@
 	<!-- Header section -->
 	<!-- logo here ! -->
 	<header class="header-section">
-		<a href="" class="site-logo"><img src="img/logo-trans.png" alt=""></a>
+		<a href="/" class="site-logo"><img src="img/logo-trans.png" alt=""></a>
 		<div class="nav-switch">
 			<i class="fa fa-bars"></i>
 		</div>
@@ -57,7 +57,6 @@
 		</div>
 	</header>
 	<!-- Header section end -->
-
 
 	<!-- Hero section -->
 	<section class="hero-section set-bg" data-setbg="img/bg.jpg">
@@ -150,8 +149,8 @@
 				<h2>Track your parcel</h2>
 			</div>
 			<div class="domain-form-warp">
-				<form class="domain-search-form" method="POST" action="/track">
-					<input type="number" name="waybill" placeholder="Enter your way bill number.">
+				<form class="domain-search-form" method="POST" action="/track" >
+					<input type="number" name="waybill" placeholder="Enter your way bill number." required>
 					<button class="site-btn">Search</button>
 				</form>
 				<p>The way bill is the receipt of our service, your number can be found at the top of the way bill.</p>
@@ -423,7 +422,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
 	<!-- Footer top section end -->
 
-	<% include __track %>
+
 
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>
