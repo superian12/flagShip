@@ -13,11 +13,11 @@ module.exports = {
     getlast: function () {
 
     },
-    deliverParcel: function (wayBill,status) {
-        let sql = `UPDATE parcels set dateDelivered = NOW(), status= ${status} WHERE wayBill = '${wayBill}' `;
+    deliverParcel: function (wayBill,status,recipient) {
+        let sql = `UPDATE parcels set dateDelivered = NOW(), recipient = ${recipient} ,status= ${status} WHERE wayBill = '${wayBill}' `;
         let query = db.query(sql, (err, result) => {
             if (err) return err;
-            return "executed"
+            else console.log("Executed");
         })
     }
     // END OF module exports

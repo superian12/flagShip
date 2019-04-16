@@ -82,8 +82,8 @@ exports.operation_addParcel = function (req, res, next) {
     if (passport.isAuth()) {
         let postData = {
             wayBill: req.body.waybill,
-            recipient: req.body.recipient,
-            address: req.body.recipient,
+            // recipient: null,
+            address: req.body.address,
             messengerGet: req.body.get,
             area: req.body.area,
             size: req.body.size,
@@ -96,11 +96,15 @@ exports.operation_addParcel = function (req, res, next) {
             
         };
 
+        // res.send(postData)
+
         let sql = 'INSERT INTO parcels SET dateGenerated = NOW(), ?';
         let query = db.query(sql, postData, (err, result) => {
             if (err) res.send(err);
-            console.log(result);
-            res.redirect('/ops/viewparcel');
+            else{
+                console.log(result);
+                res.redirect('/ops/viewparcel');
+            }
         });
     } else {
         res.redirect('/ops')
@@ -152,9 +156,16 @@ exports.operation_checkout = function (req, res) {
 exports.operation_deliver = function (req, res) {
 
     if (passport.isAuth()) {
-        mysqlStatements.deliverParcel(req.body.wayBill, req.body.status);
+        let sql = `UPDATE parcels set dateDelivered = NOW(), recipient = '${req.body.recipient}' ,status= ${req.body.status} WHERE wayBill = '${req.body.wayBill}' `;
+        let query = db.query(sql, (err, result) => {
+            if (err) console.log(err);
+            else {
+                console.log("Executed");
+                res.redirect('/ops/viewparcel');
+            }
+        })
 
-        res.redirect('/ops/viewparcel');
+        
     } else {
         res.redirect('/ops')
     }
