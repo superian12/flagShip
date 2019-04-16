@@ -51,75 +51,11 @@
 			<div class="section-title st-white">
 				<!-- <img  alt="#image"> -->
 
-				<% if(typeof  result != 'undefined') { %>
-				<p>The best out there</p>
-				<h2>Track your parcel</h2>
-			</div>
-			
-		
-			<br>
+				
 
-			<div class="tracker">
-				<div class="table-responsive">
-					<table class="table  table-light table-bordered">
-						<thead>
-							<th colspan="2"><h3>Waybill #<%= result[0].wayBill%></h3></th>
-						</thead>
-						<tbody>
 
-							<% if(result[0].status == 4 ){%>
-							<tr>
-								
-								<td colspan="2"><h2>Parcel has been returned.</h2> 
-								<h6>Rider: <%= result[0].lastName%>, <%=result[0].firstName%></h6>
-								<span>Looks like your parcel has not been delivered.</span>
-					
-								<span> We will try again to deliver the parcel tomorrow.</span>
-								<p><%= result[0].dateDelivered%></p>
-								</td>
-							</tr>
-							<%}%>
-							<% if(result[0].status == 3 && result[0] != 4){%>
-							<tr>
-								
-								<td colspan="2"><h2>Parcel Delivered !</h2> 
-								<h6>Delivered By <%= result[0].lastName%>, <%=result[0].firstName%></h6>
-								<span>Thank you for choosing D2 Na Me. Please come Deliever with us again !</span>
-								<p><%= result[0].dateDelivered%></p>
-								</td>
-							</tr>
-							<%}%>
-							<% if(result[0].status >= 2 ){%>
-							<tr>
-								<td style="width: 10%"> <h5>2</h5>
-								</td>
-								<td>
-									<h6>Parcels is on its way !</h6>
-									<p><%= result[0].dateOnRoute%></p>
-								</td>
-							</tr>
-							<%}%>
-							<% if(result[0].status >= 1){%>
-							<tr>
-								<td style="width: 10%"> <h5>1</h5>
-								</td>
-								<td>
-									<h6>Parcels is being processed !</h6>
-									<span> Pickup by Rider: <%= result[0].getLast%>,<%= result[0].getFirst%> 
-									<p><%=result[0].dateGenerated %></p>
-								</td>
-							</tr>
-							<%}%>
-						<tbody>
-					</table>
-				</div>
-			</div>
-			<% }%>
-
-			<% if(typeof result == 'undefined'){%>
 				<h1 class="text-white text-center"> No parcel found</h1>
 
-			<% }%>
 
 			<br>
 			<br>
