@@ -111,6 +111,12 @@
           <% if (area[x].type == 2){%>
             <td scope="col">South</td>
           <%}%>
+          <% if (area[x].type == 3){%>
+            <td scope="col">Rizal</td>
+          <%}%>
+          <% if (area[x].type == 4){%>
+            <td scope="col">Cavite and Laguna</td>
+          <%}%>
           <td><%= area[x].areaName %></td>
           <td><a class="btn btn-primary text-white btn-sm" > Manage </td>
         </tr>
