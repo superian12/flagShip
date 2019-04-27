@@ -50,7 +50,7 @@ app.get('/', function (req, res, next) {
 app.post('/track', function (req, res, next) {
     var wayBill = req.body.waybill;
     
-    const statement = `select p.wayBill , a.areaName, date_format(p.dateGenerated,'%d/%m/%y') as dateGenerated ,date_format(p.dateOnRoute,'%d/%m/%y') as dateOnRoute ,date_format(p.dateDelivered,'%d/%m/%y') as dateDelivered,p.status , u.firstName , u.lastName, g.firstName AS getFirst , g.lastname AS getLast FROM parcels p INNER JOIN areas a ON a.areaID = p.area INNER JOIN users u ON u.userID = p.messengerPost inner join users g ON p.messengerGet = g.userID WHERE wayBill = ${wayBill}`;
+    const statement = `select p.wayBill , a.areaName, date_format(p.dateGenerated,'%d/%m/%y') as dateGenerated ,date_format(p.dateOnRoute,'%d/%m/%y') as dateOnRoute ,date_format(p.dateDelivered,'%d/%m/%y') as dateDelivered,p.status , u.firstName , u.lastName,p.recipient, g.firstName AS getFirst , g.lastname AS getLast FROM parcels p INNER JOIN areas a ON a.areaID = p.area INNER JOIN users u ON u.userID = p.messengerPost inner join users g ON p.messengerGet = g.userID WHERE wayBill = ${wayBill}`;
     db.query(statement,(err,result)=>{
         // if(err) res.send(err)
         if(!result.length){
@@ -62,10 +62,10 @@ app.post('/track', function (req, res, next) {
     })
     
 })
-app.get('/:id', (req, res) => {
-    
+// app.get('/env', (req, res) => {
+//     console.log(process.env.port);
  
-})
+// })
 
 // Vendor Login Portal
 
