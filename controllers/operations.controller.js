@@ -185,7 +185,7 @@ exports.operation_lbcTransfer = (req,res) => {
             amount: req.body.amount
 
         }
-        let sql = `INSERT INTO PARCELS SET dateGenerated = NOW(), ? `;
+        let sql = `INSERT INTO parcels SET dateGenerated = NOW(), ? `;
         db.query(sql,postData , (err,result)=>{
             if (err) res.send(err);
             else{
