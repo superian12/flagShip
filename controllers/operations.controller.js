@@ -176,7 +176,7 @@ exports.operation_lbcTransfer = (req,res) => {
             wayBill: req.body.wayBill,
             vendorCode: req.body.vendorCode,
             messengerGet: req.body.get,
-            messnegerPost:0,
+            messengerPost:0,
             referenceNumber:req.body.reference,
             area:0,
             size:0,
