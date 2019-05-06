@@ -15,6 +15,7 @@ router.post('/testparse',operations_controller.operation_testparser);
 router.get('/manage/:waybill',operations_controller.operation_manageParcel);
 router.post('/checkoutParcel',operations_controller.operation_checkoutParcel);
 router.post('/deliverParcel',operations_controller.operation_deliver);
+router.post('/lbcTransfer',operations_controller.operation_lbcTransfer);
 // router.get('/checkout/:wayBill',operations_controller);
 // Vendor Management
 router.get('/config',operations_controller.operation_getVendor);

@@ -66,6 +66,18 @@
 							<th colspan="2"><h3>Waybill #<%= result[0].wayBill%></h3></th>
 						</thead>
 						<tbody>
+							<% if(result[0].status == 5 ){%>
+							<tr>
+								
+								<td colspan="2"><h2>Parcel has been transfered to LBC.</h2> 
+								
+								<span><a href="https://www.lbcexpress.com/track/?tracking_no=<%= result[0].referenceNumber%>" target="_blank"> LBC Tracking Number <%= result[0].referenceNumber%> </a></span>
+					
+								<span> Please always check the satus of your LBC package.</span>
+								<p><%= result[0].dateDelivered%></p>
+								</td>
+							</tr>
+							<%}%>
 
 							<% if(result[0].status == 4 ){%>
 							<tr>
@@ -90,7 +102,7 @@
 								</td>
 							</tr>
 							<%}%>
-							<% if(result[0].status >= 2 ){%>
+							<% if(result[0].status >= 2 && result[0].status != 5){%>
 							<tr>
 								<td style="width: 10%"> <h5>2</h5>
 								</td>
@@ -106,7 +118,7 @@
 								</td>
 								<td>
 									<h6>Parcels is being processed !</h6>
-									<span> Pickup by Rider: <%= result[0].getLast%>,<%= result[0].getFirst%> 
+									<span> Pickup by Rider: <%= result[0].getLast%>,<%= result[0].getFirst%> </span>
 									<p><%=result[0].dateGenerated %></p>
 								</td>
 							</tr>

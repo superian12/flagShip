@@ -170,6 +170,30 @@ exports.operation_deliver = function (req, res) {
         res.redirect('/ops')
     }
 }
+exports.operation_lbcTransfer = (req,res) => {
+    if(passport.isAuth()){
+        let postData = {
+            wayBill: req.body.wayBill,
+            vendorCode: req.body.vendorCode,
+            messengerGet: req.body.get,
+            messnegerPost:0,
+            referenceNumber:req.body.reference,
+            area:0,
+            size:0,
+            isPayed: true,
+            status: 5,
+            amount: req.body.amount
+
+        }
+        let sql = `INSERT INTO PARCELS SET dateGenerated = NOW(), ? `;
+        db.query(sql,postData , (err,result)=>{
+            if (err) res.send(err);
+            else{
+                res.redirect('/ops/viewparcel');
+            }
+        })
+    }
+}
 // Vendor Management
 
 exports.operation_getVendor = function (req, res) {

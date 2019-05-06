@@ -5,6 +5,7 @@
     <div class="container">
     <div class="table-responsive">
         <a class="btn btn-success text-white float-left" data-toggle="modal" data-target="#exampleModal">Add Parcel</a>
+        <a class="btn btn-danger text-white float-right" data-toggle="modal" data-target="#lbcTransfer">LBC Transfer</a>
         <br>
         <br>
         <table id="active_parcel" class="table table-bordered table-stripped">
@@ -69,6 +70,7 @@
 <% include modal/__exports_modal %>
 <!-- Deliver Checkout -->
 <% include modal/__deliver_modal %>
+<% include modal/__lbcTransfer_modal %>
 
 <script>
 $(document).ready(function () {

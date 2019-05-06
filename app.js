@@ -5,6 +5,7 @@ const chalk = require('chalk');
 const debug = require('debug')('app');
 const product = require('./routes/product.route'); // Imports routes for the products
 const ops = require('./routes/operation.route');
+const admin = require('./routes/admin.routes');
 const app = express();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -38,7 +39,7 @@ app.use(
 // use Routes
 app.use('/products', product);
 app.use('/ops', ops)
-
+app.use('/admin',admin);
 // View Engine
 app.set('views', './views');
 app.set('view engine', 'ejs')
@@ -50,7 +51,7 @@ app.get('/', function (req, res, next) {
 app.post('/track', function (req, res, next) {
     var wayBill = req.body.waybill;
     
-    const statement = `select p.wayBill , a.areaName, date_format(p.dateGenerated,'%d/%m/%y') as dateGenerated ,date_format(p.dateOnRoute,'%d/%m/%y') as dateOnRoute ,date_format(p.dateDelivered,'%d/%m/%y') as dateDelivered,p.status , u.firstName , u.lastName,p.recipient, g.firstName AS getFirst , g.lastname AS getLast FROM parcels p INNER JOIN areas a ON a.areaID = p.area INNER JOIN users u ON u.userID = p.messengerPost inner join users g ON p.messengerGet = g.userID WHERE wayBill = ${wayBill}`;
+    const statement = `select p.wayBill , date_format(p.dateGenerated,'%d/%m/%y') as dateGenerated ,date_format(p.dateOnRoute,'%d/%m/%y') as dateOnRoute ,date_format(p.dateDelivered,'%d/%m/%y') as dateDelivered,p.status , u.firstName , u.lastName,p.recipient, g.firstName AS getFirst , g.lastname AS getLast , p.referenceNumber FROM parcels p  INNER JOIN users u ON u.userID = p.messengerPost inner join users g ON p.messengerGet = g.userID WHERE wayBill = ${wayBill}`;
     db.query(statement,(err,result)=>{
         // if(err) res.send(err)
         if(!result.length){

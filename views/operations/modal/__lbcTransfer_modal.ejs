@@ -1,0 +1,62 @@
+<div class="modal fade" id="lbcTransfer" tabindex="-1" role="dialog" aria-labelledby="lbcTransfer" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">LBC Transfer Parcel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="dataget" action="/ops/lbcTransfer">
+            <div class="form-group">
+                <span>WayBill:</span>
+                <input type="number" class="form-control" name="wayBill" required>
+            </div>
+
+            <div class="form-group">
+              <span>Rider:</span>
+                <select name="get" class="form-control"  required>
+                    <option value="">Select one...</option>
+                    <% for (var i = 0 ; i < messenger_list.length; i++) {%>
+                        <option value="<%= messenger_list[i].userID %>"><%= messenger_list[i].firstName%> <%= messenger_list[i].lastName%> - <%= messenger_list[i].code %>%></option> 
+                    <%}%>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <span>Vendor:</span>
+                <select name="vendorCode" class="form-control"  required>
+                <option value="">Select one...</option>
+                <% for (var i = 0 ; i < vendor_list.length; i++) {%>
+                  
+                    <option value="<%= vendor_list[i].code%>"><%= vendor_list[i].code%> - <%= vendor_list[i].name%></option> 
+
+                <%}%>
+                
+                </select>
+            </div>
+            <br>
+            <h4>LBC Details</h4>
+            <hr>
+            <br>
+            <div class="form-group">
+                <span>LBC Tracking Number:</span>
+                <input type="number" class="form-control" name="reference" required>
+            </div>
+
+            <div class="form-group">
+                <span>Amount:</span>
+                <input type="number" class="form-control" name="amount" required>
+            </div>
+
+         
+            
+        </div>
+      <div class="modal-footer">
+      <input type="submit" class="btn btn-primary" value=" LBC Transfer">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
