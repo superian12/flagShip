@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const debug = require('debug')('app');
 const product = require('./routes/product.route'); // Imports routes for the products
 const ops = require('./routes/operation.route');
-// const admin = require('./routes/admin.routes');
+const admin = require('./routes/admin.routes');
 const app = express();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -39,7 +39,7 @@ app.use(
 // use Routes
 app.use('/products', product);
 app.use('/ops', ops)
-// app.use('/admin',admin);
+app.use('/admin',admin);
 // View Engine
 app.set('views', './views');
 app.set('view engine', 'ejs')

@@ -1,0 +1,133 @@
+
+<% include __header %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card text-white bg-warning stats">
+    <div class="card-header">
+      Collection
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm col-lg-7">
+          <h6>Parcels in: </h6>
+          <h3><%= card[0].report%></h3>
+        </div>
+        <div class="col-sm">
+        <a href="#" class="btn btn-lg btn-primary"> View</a>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm ">
+      <div class="card bg-info text-white stats">
+        <div class="card-header">
+          In-Stock
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm col-lg-7">
+              <h6>Parcel Delivered: </h6>
+              <h3><%= card[1].report%></h3>
+            </div>
+            <div class="col-sm">
+              <a href="#" class="btn btn-lg btn-primary"> View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Parcel on queque-->
+    <div class="col-sm cube">
+      <div class="card bg-success text-white stats">
+        <div class="card-header">
+          Transactions In
+        </div>
+        <div class="card-body">
+         <div class="row">
+          <div class="col-sm col-lg-6">
+              <h6>Amount: </h6>
+              <h3>P <%= card[2].report%></h3>
+          </div>
+            <div class="col-sm">
+            <a href="#" class="btn btn-lg btn-primary"> View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<!-- Tables-->
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <div class="container table-view table-responsive overflow-auto">
+      <h2> Messenger Parcel In </h2>
+      <table id="activeVendors" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Messenger</th>
+          <th scope="col">Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (x = 0; x< parcelIn.length; x++) { %>
+        <tr>
+          <td><%= parcelIn[x].firstName %></td>
+          <td><%= parcelIn[x].count%></td>
+
+        </tr>
+
+      <%  } %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+<!-- Table 2-->
+  <div class="col-sm">
+    <div class="container table-view table-responsive">
+      <h2> Messenger Parcel out </h2>
+      <table id="activeArea"class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Messenger</th>
+          <th scope="col">Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (x = 0; x< parcelOut.length; x++) { %>
+        <tr>
+          <td><%= parcelIn[x].firstName %></td>
+          <td><%= parcelIn[x].count%></td>
+
+        </tr>
+
+      <%  } %>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- End of Tables-->
+<script>
+$(document).ready(function () {
+$('#activeVendors').DataTable();
+$('#activeArea').DataTable();
+// $('.dataTables_length').addClass('bs-select');
+
+});
+</script>
+<% include __footer %>

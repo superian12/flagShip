@@ -12,5 +12,13 @@ module.exports = {
             res.redirect('/ops/')
         
           } 
+    },
+    isAdmin: () =>{
+      if(typeof authSession == 'undefined' || authSession.access != 1){
+        return false
+      }
+      else{
+        return true
+      }
     }
 }
