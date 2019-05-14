@@ -14,7 +14,7 @@ module.exports = {
 
     },
     dailyMessengerIn: (ush) =>{
-        var statement = `select distinct u.firstName, count(p.wayBill) as count from parcels p INNER join  users u ON p.messengerGet = u.userID  WHERE DAY(dateGenerated) = DAY(curdate()) group by u.firstName `
+        var statement = `select distinct u.firstName, count(p.wayBill) as count from parcels p INNER join  users u ON p.messengerGet = u.userID  WHERE DAY(dateGenerated) = DAY(curdate()) AND MONTH(dateGenerated) = MONTH(curdate()) group by u.firstName `
         
         db.query(statement , (err,result) =>{
             if(err)ush(err,null);
@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     dailyMessengerOut: (ush) => {
-        var statement = `select distinct u.firstName, count(p.wayBill) as count from parcels p INNER join  users u ON p.messengerPost = u.userID  WHERE DAY(dateDelivered) = DAY(curdate()) group by u.firstName `
+        var statement = `select distinct u.firstName, count(p.wayBill) as count from parcels p INNER join  users u ON p.messengerPost = u.userID  WHERE DAY(dateDelivered) = DAY(curdate()) AND MONTH(dateDelivered) = MONTH(curdate()) group by u.firstName `
         
         db.query(statement , (err,result) =>{
             if(err)ush(err,null);
