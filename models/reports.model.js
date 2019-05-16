@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 module.exports = {
     dailyReportCard:  (ush) => {
-        var statement = 'select count(*) as report from parcels where  DAY(dateGenerated) = DAY(curdate()) union all select count(*) from parcels where  DAY(dateDelivered) = DAY(curdate()) union all select SUM(amount) from parcels where DAY(dateGenerated) = DAY(curdate()) AND MONTH(dateGenerated) = MONTH(curdate()) '
+        var statement = 'select count(*) as report from parcels where  DAY(dateGenerated) = DAY(curdate()) AND month(dateGenerated) = month(curdate()) AND status != 5 union all select count(*) from parcels where  DAY(dateDelivered) = DAY(curdate()) AND month(dateDelivered) = month(curdate()) AND status !=5 union all select SUM(amount) from parcels where DAY(dateGenerated) = DAY(curdate()) AND MONTH(dateGenerated) = MONTH(curdate()) '
         db.query(statement, function (err, result) {
             if (err)
                 ush(err, null);
