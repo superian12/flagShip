@@ -193,6 +193,14 @@ exports.operation_lbcTransfer = (req,res) => {
             }
         })
     }
+},
+exports.add_parcel = (req,res) =>{
+
+  
+            
+    
+
+    res.render('operations/add_parcel');
 }
 // Vendor Management
 
@@ -217,8 +225,11 @@ exports.operation_addVendor = function (req, res) {
     let sql = 'INSERT INTO vendors SET ?';
     let query = db.query(sql, Vendor, (err, result) => {
         if (err) res.send(err);
-        var message
-        res.redirect('/ops/dashboard');
+        else{
+            res.redirect('/ops/dashboard');
+        }
+       
+        
     });
 
 }
@@ -269,6 +280,27 @@ exports.operations_addUsers = (req, res) => {
     // res.send(messengers);
 
 }
+exports.operations_addOps = (req, res) => {
+    let messengers = {
+        code: null,
+        email: req.body.email,
+        password: hash(req.body.password),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        mobileNo: 0,
+        roleID: 3,
+        status: 1,
+        hasAccess: true
+    }
+    const statement = "INSERT into users SET ?";
+    db.query(statement, messengers, (err, result) => {
+        if (err) console.log(err);
+        res.redirect('/ops/users')
+    })
+    // res.send(messengers);
+
+}
+
 
 
 // exports.status = function (req, res) {
